@@ -1,14 +1,38 @@
 {
+  "name": "earthquake-map",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Display of seismic intensity distribution map.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/earthquake-alert/Earthquake-map"
+  },
+  "author": {
+    "name": "Yuto Watanabe",
+    "email": "yuto.w51942@gmail.com",
+    "url": "https://github.com/yuto51942"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/earthquake-alert/Earthquake-map/issues"
+  },
   "dependencies": {
-    "ts-loader": "^8.0.1",
-    "tsc": "^1.20150623.0",
-    "typescript": "^3.9.7",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "@types/ol": "^6.3.1",
+    "ol": "^6.4.2",
+    "typescript": "^3.9.7"
   },
   "scripts": {
     "build": "webpack",
     "watch": "webpack -w",
     "tsc": "tsc"
+  },
+  "devDependencies": {
+    "css-loader": "^4.1.1",
+    "style-loader": "^1.2.1",
+    "webpack-dev-server": "^3.11.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "ts-loader": "^8.0.1",
+    "tsc": "^1.20150623.0"
   }
 }
