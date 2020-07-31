@@ -1,5 +1,14 @@
 {
   "dependencies": {
-    "tsc": "^1.20150623.0"
+    "ts-loader": "^8.0.1",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w",
+    "tsc": "tsc"
   }
 }
