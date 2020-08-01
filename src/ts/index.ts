@@ -2,7 +2,6 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
-import MVT from 'ol/format/MVT';
 import MVTFormat from 'ol/format/MVT';
 import { fromLonLat } from 'ol/proj';
 import {Style, Stroke, Fill} from 'ol/style';
@@ -22,6 +21,22 @@ const prefMap = new VectorTileLayer({
   style: new Style({
     stroke: new Stroke({
       color: '#a6a6a6'
+    }),
+  }),
+  maxZoom: 10,
+  minZoom: 0,
+  maxResolution: 5000,
+});
+
+// 水域マップ
+const waterAreaMap = new VectorTileLayer({
+  source: new VectorTileSource({
+    format: new MVTFormat(),
+    url: 'static/waterArea/{z}/{x}/{y}.pbf',
+  }),
+  style: new Style({
+    fill: new Fill({
+      color: '#3b446e'
     }),
   }),
   maxZoom: 10,
@@ -102,5 +117,6 @@ const map = new Map({
     worldMap,
     distlictMap,
     prefMap,
+    waterAreaMap,
   ],
 });
