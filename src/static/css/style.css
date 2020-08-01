@@ -10,4 +10,42 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #1a1a1a;
+}
+
+.map .ol-custom-overviewmap .ol-overviewmap-box {
+    border: 3px solid #d63636;
+}
+
+.map .ol-custom-overviewmap:not(.ol-collapsed) button{
+    display:none;
+}
+
+.map .ol-custom-overviewmap,
+.map .ol-custom-overviewmap.ol-uncollapsible {
+    border: 3px solid #212121;
+    opacity: 80%;
+    margin: 0;
+    padding: 0;
+    /* border-color: #1a1a1a; */
+    border-radius: 0 0 0 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    top: auto;
+}
+
+.map .ol-custom-overviewmap .ol-overviewmap-map {
+    background-color: #1a1a1a;
+    border: none;
+    width: 400px;
+    height: 200px;
+}
+
+.ol-overviewmap-map {
+    border: none;
+}
+
+.ol-overviewmap .ol-overviewmap-map {
+    margin: 0 !important;
 }
