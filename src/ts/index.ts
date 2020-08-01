@@ -5,12 +5,18 @@ import VectorTileSource from 'ol/source/VectorTile';
 import MVTFormat from 'ol/format/MVT';
 import { fromLonLat } from 'ol/proj';
 import {Style, Stroke, Fill} from 'ol/style';
-import {OverviewMap, defaults as defaultControls} from 'ol/control';
+import {OverviewMap, Attribution, defaults as defaultControls} from 'ol/control';
 
 
 import vtStyle from './mapStyle'
 
 import 'ol/ol.css';
+
+// 地図データ
+const attribution = new Attribution({
+  className: 'copyright',
+  collapsible: false,
+});
 
 // 都道府県のマップ
 const prefMap = new VectorTileLayer({
@@ -18,8 +24,8 @@ const prefMap = new VectorTileLayer({
     format: new MVTFormat(),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref/{z}/{x}/{y}.pbf',
     attributions: [
-      '国土数値情報（行政区域データ、湖沼データ）',
-    ]
+      '© Earthquake alert(YutoWatanabe) / 地図データ: 国土数値情報（行政区域データ、湖沼データ）',
+    ],
   }),
   style: new Style({
     stroke: new Stroke({
@@ -66,6 +72,9 @@ const worldMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat(),
     url: 'https://earthquake-alert.github.io/maps/pbf_world/world/{z}/{x}/{y}.pbf',
+    attributions: [
+      '© Earthquake alert(YutoWatanabe) / 地図データ: Natural Earth',
+    ],
   }),
   style: new Style({
     fill: new Fill({
@@ -88,7 +97,7 @@ const overviewMap = new VectorTileLayer({
   }),
   style: new Style({
     fill: new Fill({
-      color: '#595959',
+      color: '#d1d1d1',
     }),
     stroke: new Stroke({
       color: '#a6a6a6'
@@ -109,7 +118,10 @@ const overviewMapControl = new OverviewMap({
 
 // マップ描画
 const map = new Map({
-  controls: defaultControls().extend([overviewMapControl]),
+  controls: defaultControls().extend([
+    overviewMapControl,
+    attribution,
+  ]),
   target: 'map',
   view: new View({
     center: fromLonLat([140.46, 36.37]),

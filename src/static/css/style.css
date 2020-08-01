@@ -14,7 +14,7 @@ html, body {
 }
 
 .map .ol-custom-overviewmap .ol-overviewmap-box {
-    border: 3px solid #d63636;
+    border: 0.2em solid #d63636;
 }
 
 .map .ol-custom-overviewmap:not(.ol-collapsed) button{
@@ -23,24 +23,22 @@ html, body {
 
 .map .ol-custom-overviewmap,
 .map .ol-custom-overviewmap.ol-uncollapsible {
-    border: 3px solid #212121;
+    border: 0.25em solid #c2c2c2;
     opacity: 80%;
     margin: 0;
     padding: 0;
     border-radius: 0 0 0 0;
-    /* bottom: 0; */
-    bottom: auto;
+    bottom: 0;
     left: auto;
     right: 0;
-    /* top: auto; */
-    top: 0;
+    top: auto;
 }
 
 .map .ol-custom-overviewmap .ol-overviewmap-map {
-    background-color: #1a1a1a;
+    background-color: #313f52;
     border: none;
-    width: 400px;
-    height: 200px;
+    width: 20.8em;
+    height: 11.7em;
 }
 
 .ol-overviewmap-map {
@@ -49,4 +47,37 @@ html, body {
 
 .ol-overviewmap .ol-overviewmap-map {
     margin: 0 !important;
+}
+
+
+.ol-attribution :not(.copyright){
+    display: none;
+}
+
+.ol-control {
+    padding: 0 !important;
+}
+
+.copyright {
+    top: auto;
+    bottom: 0.5em;
+    left: 0;
+    right: auto;
+    padding: 0;
+    margin: 0;
+    border-radius: 0 !important;
+    background-color: #a1a1a1 !important;
+}
+
+.map .copyright button {
+    display:none;
+}
+
+.map .copyright ul {
+    padding: 0 0.2em 0 0.5em;
+    margin: 0;
+}
+
+.map .copyright ul li {
+    font-size: 2px;
 }
