@@ -16,7 +16,10 @@ import 'ol/ol.css';
 const prefMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat(),
-    url: 'static/pref/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref/{z}/{x}/{y}.pbf',
+    attributions: [
+      '国土数値情報（行政区域データ、湖沼データ）',
+    ]
   }),
   style: new Style({
     stroke: new Stroke({
@@ -32,7 +35,7 @@ const prefMap = new VectorTileLayer({
 const waterAreaMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat(),
-    url: 'static/waterArea/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_water_area/waterArea/{z}/{x}/{y}.pbf',
   }),
   style: new Style({
     fill: new Fill({
@@ -48,7 +51,7 @@ const waterAreaMap = new VectorTileLayer({
 const distlictMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat({}),
-    url: 'static/distlict/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_japan/distlict/{z}/{x}/{y}.pbf',
   }),
   // @ts-ignore
   style: vtStyle,
@@ -62,7 +65,7 @@ const distlictMap = new VectorTileLayer({
 const worldMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat(),
-    url: 'static/world/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_world/world/{z}/{x}/{y}.pbf',
   }),
   style: new Style({
     fill: new Fill({
@@ -81,7 +84,7 @@ const worldMap = new VectorTileLayer({
 const overviewMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat(),
-    url: 'static/pref/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref/{z}/{x}/{y}.pbf',
   }),
   style: new Style({
     fill: new Fill({
@@ -116,7 +119,7 @@ const map = new Map({
   layers: [
     worldMap,
     distlictMap,
-    prefMap,
     waterAreaMap,
+    prefMap,
   ],
 });
