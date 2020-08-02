@@ -31,3 +31,16 @@ pipenv shell
 
 # connect to http://localhost:5000/
 ```
+
+## 各震度の色
+
+| 震度  |                                    色                                     |
+| :---: | :-----------------------------------------------------------------------: |
+|   1   | ![#37a9ad](https://via.placeholder.com/15/37a9ad/000000?text=+) `#37a9ad` |
+|   3   | ![#ada937](https://via.placeholder.com/15/ada937/000000?text=+) `#ada937` |
+|   4   | ![#ad6c37](https://via.placeholder.com/15/ad6c37/000000?text=+) `#ad6c37` |
+|  5弱  | ![#ad3737](https://via.placeholder.com/15/ad3737/000000?text=+) `#ad3737` |
+|  5強  | ![#ad3737](https://via.placeholder.com/15/ad3737/000000?text=+) `#ad3737` |
+|  6弱  | ![#ad3793](https://via.placeholder.com/15/ad3793/000000?text=+) `#ad3793` |
+|  6強  | ![#ad3793](https://via.placeholder.com/15/ad3793/000000?text=+) `#ad3793` |
+|   7   | ![#7837ad](https://via.placeholder.com/15/7837ad/000000?text=+) `#7837ad` |

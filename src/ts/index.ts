@@ -25,7 +25,7 @@ const prefMap = new VectorTileLayer({
     format: new MVTFormat(),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref_jma/{z}/{x}/{y}.pbf',
     attributions: [
-      '© Earthquake alert(YutoWatanabe) / 地図データ: 国土数値情報（湖沼データ）、気象庁（地震情報／細分区域）',
+      '© Earthquake alert(YutoWatanabe) / 地図データ: 国土数値情報(湖沼データ), 気象庁(地震情報／細分区域, 緊急地震速報／府県予報区)',
     ],
   }),
   style: new Style({
@@ -46,7 +46,7 @@ const waterAreaMap = new VectorTileLayer({
   }),
   style: new Style({
     fill: new Fill({
-      color: '#374152'
+      color: '#5c6d8a'
     }),
   }),
   maxZoom: 10,
