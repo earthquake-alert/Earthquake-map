@@ -37,6 +37,7 @@ pipenv shell
 | 震度  |                                    色                                     |
 | :---: | :-----------------------------------------------------------------------: |
 |   1   | ![#37a9ad](https://via.placeholder.com/15/37a9ad/000000?text=+) `#37a9ad` |
+|   2   | ![#37ad4d](https://via.placeholder.com/15/37ad4d/000000?text=+) `#37ad4d` |
 |   3   | ![#ada937](https://via.placeholder.com/15/ada937/000000?text=+) `#ada937` |
 |   4   | ![#ad6c37](https://via.placeholder.com/15/ad6c37/000000?text=+) `#ad6c37` |
 |  5弱  | ![#ad3737](https://via.placeholder.com/15/ad3737/000000?text=+) `#ad3737` |
