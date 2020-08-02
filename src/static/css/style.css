@@ -10,7 +10,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #1a1a1a;
+    background-color: #374152;
 }
 
 .map .ol-custom-overviewmap .ol-overviewmap-box {
@@ -35,7 +35,7 @@ html, body {
 }
 
 .map .ol-custom-overviewmap .ol-overviewmap-map {
-    background-color: #313f52;
+    background-color: #1f1f1f;
     border: none;
     width: 20.8em;
     height: 11.7em;

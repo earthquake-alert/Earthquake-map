@@ -8,7 +8,7 @@ import {Style, Stroke, Fill} from 'ol/style';
 import {OverviewMap, Attribution, defaults as defaultControls} from 'ol/control';
 import 'ol/ol.css';
 
-import {setUrl, tileStyle, center} from './mapStyle'
+import {setUrl, tileStyle, center, zoomLevel} from './mapStyle'
 
 const url = location.href;
 setUrl(url);
@@ -46,7 +46,7 @@ const waterAreaMap = new VectorTileLayer({
   }),
   style: new Style({
     fill: new Fill({
-      color: '#3b446e'
+      color: '#374152'
     }),
   }),
   maxZoom: 10,
@@ -79,7 +79,7 @@ const worldMap = new VectorTileLayer({
   }),
   style: new Style({
     fill: new Fill({
-      color: '#595959',
+      color: '#474747',
     }),
     stroke: new Stroke({
       color: '#a6a6a6'
@@ -98,7 +98,7 @@ const overviewMap = new VectorTileLayer({
   }),
   style: new Style({
     fill: new Fill({
-      color: '#d1d1d1',
+      color: '#474747',
     }),
     stroke: new Stroke({
       color: '#a6a6a6'
@@ -126,7 +126,7 @@ const map = new Map({
   target: 'map',
   view: new View({
     center: fromLonLat(center()),
-    zoom: 6,
+    zoom: zoomLevel(),
     maxZoom: 10,
   }),
   layers: [

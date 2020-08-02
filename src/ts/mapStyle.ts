@@ -30,6 +30,8 @@ var parameter: Parameter  = {
 
 var count: number = 0
 const centerPosition: number[] = [0, 0];
+const latMaxMin: number[] = [0, 0];
+const lonMaxMin: number[] = [0, 0];
 
 // urlからパラメータを取得
 function getUrl(url: string, name: string): string[]{
@@ -74,14 +76,69 @@ export function center(): number[] {
   return [centerPosition[0] / count, centerPosition[1] / count];
 }
 
-// 各areasから緯度経度の合計を計算
+// 拡大率を求める
+export function zoomLevel(): number {
+  if ((latMaxMin[0]+latMaxMin[1]) == 0 && (lonMaxMin[0]+lonMaxMin[1]) == 0){
+    return 6;
+  }
+  else{
+    // 3平方の定理を用いて対角線長を求める。
+    const distance = Math.sqrt(Math.pow((latMaxMin[0]-latMaxMin[1]), 2) + Math.pow((lonMaxMin[0]-lonMaxMin[1]), 2));
+
+    if(distance < 2) {
+      return 9;
+    }
+    if(distance >= 2 && distance < 5){
+      return 8;
+    }
+    if(distance >= 5 && distance < 7){
+      return 7;
+    }
+    if(distance >= 7 && distance < 10){
+      return 6;
+    }
+    if(distance >= 10 && distance < 15){
+      return 5;
+    }
+    return 6;
+  }
+}
+
+// エリアタイル（細分区域）
 function addPosition(codes: string[]){
   for(let code of codes){
     count++;
-     const metaData = distlic(code);
-    if (metaData != []){
-      centerPosition[0] += metaData[0];
-      centerPosition[1] += metaData[1];
+    const metaData = distlic(code);
+    positionCalculate(metaData);
+  }
+}
+
+// 緯度経度から中心位置、拡大率を求めるためにすべての合計と最大最小を取得
+function positionCalculate(metaData: number[]) {
+  if (metaData != []){
+    // 中心位置用のすべての合計
+    centerPosition[0] += metaData[0];
+    centerPosition[1] += metaData[1];
+
+    // 初期設定
+    if ((latMaxMin[0]+latMaxMin[1]) == 0 && (lonMaxMin[0]+lonMaxMin[1]) == 0){
+      lonMaxMin[0] = metaData[0];
+      lonMaxMin[1] = metaData[0];
+      latMaxMin[0] = metaData[1];
+      latMaxMin[1] = metaData[1];
+    }else {
+      // 各緯度の最大最小を取得
+      if (lonMaxMin[0] < metaData[0]){
+        lonMaxMin[0] = metaData[0];
+      }else if(lonMaxMin[1] > metaData[0]){
+        lonMaxMin[1] = metaData[0];
+      }
+      // 各経度の最大最小を取得
+      if (latMaxMin[0] < metaData[1]){
+        latMaxMin[0] = metaData[1];
+      }else if (latMaxMin[1] > metaData[1]){
+        latMaxMin[1] = metaData[1];
+      }
     }
   }
 }
@@ -185,10 +242,10 @@ export function tileStyle(feature: RenderFeature, resolution: number): Style{
 
   return new Style({
     fill: new Fill({
-      color: '#595959',
+      color: '#474747',
     }),
     stroke: new Stroke({
-      color: '#636363'
+      color: '#474747'
     }),
   });
 }
