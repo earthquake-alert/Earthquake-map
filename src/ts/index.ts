@@ -46,7 +46,7 @@ const waterAreaMap = new VectorTileLayer({
   }),
   style: new Style({
     fill: new Fill({
-      color: '#5c6d8a'
+      color: '#243040'
     }),
   }),
   maxZoom: 10,
