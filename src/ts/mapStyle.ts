@@ -13,6 +13,7 @@ interface Parameter {
   areas6u: string[],
   areas7: string[],
   pref: string[],
+  epicenter: string[],
 }
 
 var parameter: Parameter  = {
@@ -26,12 +27,15 @@ var parameter: Parameter  = {
   areas6u: [],
   areas7: [],
   pref: [],
+  epicenter: [],
 };
 
 var count: number = 0
+// [lon, lat]
 const centerPosition: number[] = [0, 0];
 const latMaxMin: number[] = [0, 0];
 const lonMaxMin: number[] = [0, 0];
+var isOverseas: boolean = false;
 
 // urlからパラメータを取得
 function getUrl(url: string, name: string): string[]{
@@ -45,6 +49,7 @@ function getUrl(url: string, name: string): string[]{
 }
 
 export function setUrl(url: string) {
+  // areas 細分区域タイル塗りつぶし
   parameter.areas1 = getUrl(url, 'areas1');
   parameter.areas2 = getUrl(url, 'areas2');
   parameter.areas3 = getUrl(url, 'areas3');
@@ -56,6 +61,9 @@ export function setUrl(url: string) {
   parameter.areas7 = getUrl(url, 'areas7');
   parameter.pref = getUrl(url, 'pref');
 
+  // 震源地 [lon, lat]
+  parameter.epicenter = getUrl(url, 'epi');
+
   addPosition(parameter.areas1);
   addPosition(parameter.areas2);
   addPosition(parameter.areas3);
@@ -65,6 +73,9 @@ export function setUrl(url: string) {
   addPosition(parameter.areas6l);
   addPosition(parameter.areas6u);
   addPosition(parameter.areas7);
+  if (parameter.epicenter.length > 0){
+    addEpicenter(parameter.epicenter);
+  }
 
 }
 
@@ -72,12 +83,19 @@ export function setUrl(url: string) {
 export function center(): number[] {
   if (centerPosition[0] == 0 && centerPosition[1] == 0){
     return [139.570312, 35.621581];
+  }else if(isOverseas){
+    // 海外の場合は日本と震源の中心をとる
+    return [(139.570312+centerPosition[1]) / (count+1), (35.621581+centerPosition[0]) / (count+1)];
   }
-  return [centerPosition[0] / count, centerPosition[1] / count];
+  return [centerPosition[1] / count, centerPosition[0] / count];
 }
 
 // 拡大率を求める
 export function zoomLevel(): number {
+  // 海外の場合
+  if (isOverseas){
+    return 1;
+  }
   if ((latMaxMin[0]+latMaxMin[1]) == 0 && (lonMaxMin[0]+lonMaxMin[1]) == 0){
     return 6;
   }
@@ -107,14 +125,28 @@ export function zoomLevel(): number {
 // エリアタイル（細分区域）
 function addPosition(codes: string[]){
   for(let code of codes){
-    count++;
     const metaData = distlic(code);
     positionCalculate(metaData);
   }
 }
 
+// 震源地
+function addEpicenter(position: string[]) {
+  const lon = parseFloat(position[0]);
+  const lat = parseFloat(position[1]);
+
+  // 海外の地震の場合
+  if(lon < 20.2531 || lon > 45.3326 || lat < 122.5557 || lat > 153.5912){
+    isOverseas = true;
+  }
+
+  positionCalculate([lon, lat]);
+}
+
 // 緯度経度から中心位置、拡大率を求めるためにすべての合計と最大最小を取得
 function positionCalculate(metaData: number[]) {
+  count++;
+
   if (metaData != []){
     // 中心位置用のすべての合計
     centerPosition[0] += metaData[0];

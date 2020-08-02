@@ -1,5 +1,3 @@
-import { type } from "os";
-
 interface Data {
   lat: string,
   lon: string,
@@ -202,11 +200,12 @@ function positionDistlic(code: string): Data{
   return positionData[code];
 }
 
+// 細分区域のコードから緯度経度を返す
 export function distlic(code: string): number[] {
     const metaData: Data = positionDistlic(code);
     if (typeof metaData != 'undefined'){
-      const lat = parseFloat(metaData.lon);
-      const lon = parseFloat(metaData.lat);
+      const lon = parseFloat(metaData.lon);
+      const lat = parseFloat(metaData.lat);
       if (typeof lat != 'undefined' && typeof lon != 'undefined'){
         return [lon, lat];
       }
