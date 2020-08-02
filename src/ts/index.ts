@@ -6,11 +6,12 @@ import MVTFormat from 'ol/format/MVT';
 import { fromLonLat } from 'ol/proj';
 import {Style, Stroke, Fill} from 'ol/style';
 import {OverviewMap, Attribution, defaults as defaultControls} from 'ol/control';
-
-
-import vtStyle from './mapStyle'
-
 import 'ol/ol.css';
+
+import {setUrl, tileStyle, center} from './mapStyle'
+
+const url = location.href;
+setUrl(url);
 
 // 地図データ
 const attribution = new Attribution({
@@ -22,9 +23,9 @@ const attribution = new Attribution({
 const prefMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat(),
-    url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref_jma/{z}/{x}/{y}.pbf',
     attributions: [
-      '© Earthquake alert(YutoWatanabe) / 地図データ: 国土数値情報（行政区域データ、湖沼データ）',
+      '© Earthquake alert(YutoWatanabe) / 地図データ: 国土数値情報（湖沼データ）、気象庁（地震情報／細分区域）',
     ],
   }),
   style: new Style({
@@ -57,10 +58,10 @@ const waterAreaMap = new VectorTileLayer({
 const distlictMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat({}),
-    url: 'https://earthquake-alert.github.io/maps/pbf_japan/distlict/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_japan/distlict_jma/{z}/{x}/{y}.pbf',
   }),
   // @ts-ignore
-  style: vtStyle,
+  style: tileStyle,
   maxZoom: 10,
   minZoom: 0,
   maxResolution: 5000,
@@ -93,7 +94,7 @@ const worldMap = new VectorTileLayer({
 const overviewMap = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat(),
-    url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref/{z}/{x}/{y}.pbf',
+    url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref_jma/{z}/{x}/{y}.pbf',
   }),
   style: new Style({
     fill: new Fill({
@@ -124,7 +125,7 @@ const map = new Map({
   ]),
   target: 'map',
   view: new View({
-    center: fromLonLat([140.46, 36.37]),
+    center: fromLonLat(center()),
     zoom: 6,
     maxZoom: 10,
   }),

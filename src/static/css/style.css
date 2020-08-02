@@ -78,6 +78,7 @@ html, body {
     margin: 0;
 }
 
+/* copyright の文字*/
 .map .copyright ul li {
     font-size: 2px;
 }
