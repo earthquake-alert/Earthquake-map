@@ -1,6 +1,8 @@
 import {Style, Stroke, Fill} from 'ol/style';
 import RenderFeature from 'ol/render/Feature';
+
 import {distlic} from './convertPosition';
+import {color} from './color';
 
 interface Parameter {
   areas1: string[],
@@ -184,100 +186,100 @@ export function tileStyle(feature: RenderFeature, resolution: number): Style{
     // 震度1 タイル
     return new Style({
       fill: new Fill({
-        color: '#37a9ad',
+        color: color('1'),
       }),
       stroke: new Stroke({
-        color: '#62dfe3'
+        color: color('1Stroke'),
       }),
     });
   }else if(parameter.areas2.indexOf(properties.code) !== -1){
     // 震度2 タイル
     return new Style({
       fill: new Fill({
-        color: '#37ad4d',
+        color: color('2'),
       }),
       stroke: new Stroke({
-        color: '#75e089'
+        color: color('2Stroke'),
       }),
     });
   }else if(parameter.areas3.indexOf(properties.code) !== -1){
     // 震度3 タイル
     return new Style({
       fill: new Fill({
-        color: '#ada937',
+        color: color('3'),
       }),
       stroke: new Stroke({
-        color: '#e3df6f'
+        color: color('3Stroke'),
       }),
     });
   }else if(parameter.areas4.indexOf(properties.code) !== -1){
     // 震度4 タイル
     return new Style({
       fill: new Fill({
-        color: '#ad6c37',
+        color: color('4'),
       }),
       stroke: new Stroke({
-        color: '#edab74'
+        color: color('4Stroke'),
       }),
     });
   }else if(parameter.areas5l.indexOf(properties.code) !== -1){
     // 震度5弱 タイル
     return new Style({
       fill: new Fill({
-        color: '#ad3737',
+        color: color('5l'),
       }),
       stroke: new Stroke({
-        color: '#eb6767'
+        color: color('5lStroke'),
       }),
     });
   }else if(parameter.areas5u.indexOf(properties.code) !== -1){
     // 震度5強 タイル
     return new Style({
       fill: new Fill({
-        color: '#ad3737',
+        color: color('5u'),
       }),
       stroke: new Stroke({
-        color: '#eb6767'
+        color: color('5uStroke'),
       }),
     });
   }else if(parameter.areas6l.indexOf(properties.code) !== -1){
     // 震度6弱 タイル
     return new Style({
       fill: new Fill({
-        color: '#ad3793',
+        color: color('6l'),
       }),
       stroke: new Stroke({
-        color: '#f071d4'
+        color: color('6lStroke'),
       }),
     });
   }else if(parameter.areas6u.indexOf(properties.code) !== -1){
     // 震度6強 タイル
     return new Style({
       fill: new Fill({
-        color: '#ad3793',
+        color: color('6u'),
       }),
       stroke: new Stroke({
-        color: '#f071d4'
+        color: color('6uStroke'),
       }),
     });
   }else if(parameter.areas7.indexOf(properties.code) !== -1){
     // 震度7 タイル
     return new Style({
       fill: new Fill({
-        color: '#7837ad',
+        color: color('7'),
       }),
       stroke: new Stroke({
-        color: '#b16aeb'
+        color: color('7Stroke'),
       }),
     });
   }
 
   return new Style({
     fill: new Fill({
-      color: '#474747',
+      color: color('land'),
     }),
     stroke: new Stroke({
-      color: '#474747'
+      color: color('areaStroke'),
     }),
   });
 }
