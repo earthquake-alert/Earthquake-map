@@ -4,7 +4,7 @@ interface Data {
   name: string,
 }
 
-function positionDistlic(code: string): Data{
+function positionDistrict(code: string): Data{
 
   const positionData: {[key: string]: Data}  = {
     '100': {lat: '141.49525560707', lon: '43.4151931842515', name: '石狩地方北部',},
@@ -201,8 +201,8 @@ function positionDistlic(code: string): Data{
 }
 
 // 細分区域のコードから緯度経度を返す
-export function distlic(code: string): number[] {
-    const metaData: Data = positionDistlic(code);
+export function district(code: string): number[] {
+    const metaData: Data = positionDistrict(code);
     if (typeof metaData != 'undefined'){
       const lon = parseFloat(metaData.lon);
       const lat = parseFloat(metaData.lat);

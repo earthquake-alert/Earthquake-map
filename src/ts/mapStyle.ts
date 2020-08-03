@@ -1,7 +1,7 @@
 import {Style, Stroke, Fill} from 'ol/style';
 import RenderFeature from 'ol/render/Feature';
 
-import {distlic} from './convertPosition';
+import {district} from './convertPosition';
 import {color} from './color';
 
 interface Parameter {
@@ -16,6 +16,15 @@ interface Parameter {
   areas7: string[],
   pref: string[],
   epicenter: string[],
+  point1: string[],
+  point2: string[],
+  point3: string[],
+  point4: string[],
+  point5l: string[],
+  point5u: string[],
+  point6l: string[],
+  point6u: string[],
+  point7: string[],
 }
 
 var parameter: Parameter  = {
@@ -30,6 +39,15 @@ var parameter: Parameter  = {
   areas7: [],
   pref: [],
   epicenter: [],
+  point1: [],
+  point2: [],
+  point3: [],
+  point4: [],
+  point5l: [],
+  point5u: [],
+  point6l: [],
+  point6u: [],
+  point7: [],
 };
 
 var count: number = 0
@@ -50,6 +68,7 @@ function getUrl(url: string, name: string): string[]{
   return [];
 }
 
+// urlのパラメータから変数を設定
 export function setUrl(url: string) {
   // areas 細分区域タイル塗りつぶし
   parameter.areas1 = getUrl(url, 'areas1');
@@ -63,6 +82,17 @@ export function setUrl(url: string) {
   parameter.areas7 = getUrl(url, 'areas7');
   parameter.pref = getUrl(url, 'pref');
 
+  // 震度観測点
+  parameter.point1 = getUrl(url, 'point1');
+  parameter.point2 = getUrl(url, 'point2');
+  parameter.point3 = getUrl(url, 'point3');
+  parameter.point4 = getUrl(url, 'point4');
+  parameter.point5l = getUrl(url, 'point5l');
+  parameter.point5u = getUrl(url, 'point5u');
+  parameter.point6l = getUrl(url, 'point6l');
+  parameter.point6u = getUrl(url, 'point6u');
+  parameter.point7 = getUrl(url, 'point7');
+
   // 震源地 [lon, lat]
   parameter.epicenter = getUrl(url, 'epi');
 
@@ -75,6 +105,17 @@ export function setUrl(url: string) {
   addPosition(parameter.areas6l);
   addPosition(parameter.areas6u);
   addPosition(parameter.areas7);
+
+  addPoint(parameter.point1);
+  addPoint(parameter.point2);
+  addPoint(parameter.point3);
+  addPoint(parameter.point4);
+  addPoint(parameter.point5l);
+  addPoint(parameter.point5u);
+  addPoint(parameter.point6l);
+  addPoint(parameter.point6u);
+  addPoint(parameter.point7);
+
   if (parameter.epicenter.length > 0){
     addEpicenter(parameter.epicenter);
   }
@@ -92,6 +133,7 @@ export function center(): number[] {
   return [centerPosition[1] / count, centerPosition[0] / count];
 }
 
+// 震源を返す
 export function pointEpicenter(): number[] {
   const lon = parseFloat(parameter.epicenter[0]);
   const lat = parseFloat(parameter.epicenter[1]);
@@ -133,7 +175,7 @@ export function zoomLevel(): number {
 // エリアタイル（細分区域）
 function addPosition(codes: string[]){
   for(let code of codes){
-    const metaData = distlic(code);
+    const metaData = district(code);
     positionCalculate(metaData);
   }
 }
@@ -149,6 +191,17 @@ function addEpicenter(position: string[]) {
   }
 
   positionCalculate([lon, lat]);
+}
+
+// 震度観測点
+function addPoint(position: string[]){
+  for(let element of position){
+    const areaPosition =  element.split(':')
+    if(areaPosition.length != 2){
+      return;
+    }
+    positionCalculate([parseFloat(areaPosition[0]), parseFloat(areaPosition[1])]);
+  }
 }
 
 // 緯度経度から中心位置、拡大率を求めるためにすべての合計と最大最小を取得

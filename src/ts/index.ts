@@ -61,7 +61,7 @@ const waterAreaMap = new Layer.VectorTile({
 });
 
 // 細分区域のマップ
-const distlictMap = new Layer.VectorTile({
+const districtMap = new Layer.VectorTile({
   source: new Source.VectorTile({
     format: new Format.MVT({}),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/distlict_jma/{z}/{x}/{y}.pbf',
@@ -114,7 +114,7 @@ const overviewMap = new Layer.VectorTile({
   minZoom: 0,
 });
 
-// 震源地
+// 震源地のマッピング
 const epicenterMap = new Layer.Vector({
   source: new Source.Vector({
     features: [
@@ -154,7 +154,7 @@ const map = new Map({
   }),
   layers: [
     worldMap,
-    distlictMap,
+    districtMap,
     waterAreaMap,
     prefMap,
     epicenterMap,
