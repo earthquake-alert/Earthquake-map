@@ -211,14 +211,8 @@ export function zoomLevel(): number {
     if(distance >= 2 && distance < 5){
       return 8;
     }
-    if(distance >= 5 && distance < 7){
+    if(distance >= 5){
       return 7;
-    }
-    if(distance >= 7 && distance < 10){
-      return 6;
-    }
-    if(distance >= 10 && distance < 15){
-      return 5;
     }
     return 6;
   }
