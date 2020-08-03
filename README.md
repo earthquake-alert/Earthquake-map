@@ -36,12 +36,12 @@ pipenv shell
 
 | 震度  |                                    色                                     |
 | :---: | :-----------------------------------------------------------------------: |
-|   1   | ![#37a9ad](https://via.placeholder.com/15/37a9ad/000000?text=+) `#37a9ad` |
-|   2   | ![#37ad4d](https://via.placeholder.com/15/37ad4d/000000?text=+) `#37ad4d` |
-|   3   | ![#ada937](https://via.placeholder.com/15/ada937/000000?text=+) `#ada937` |
-|   4   | ![#ad6c37](https://via.placeholder.com/15/ad6c37/000000?text=+) `#ad6c37` |
-|  5弱  | ![#ad3737](https://via.placeholder.com/15/ad3737/000000?text=+) `#ad3737` |
-|  5強  | ![#ad3737](https://via.placeholder.com/15/ad3737/000000?text=+) `#ad3737` |
-|  6弱  | ![#ad3793](https://via.placeholder.com/15/ad3793/000000?text=+) `#ad3793` |
-|  6強  | ![#ad3793](https://via.placeholder.com/15/ad3793/000000?text=+) `#ad3793` |
-|   7   | ![#7837ad](https://via.placeholder.com/15/7837ad/000000?text=+) `#7837ad` |
+|   1   | ![#54cfe8](https://via.placeholder.com/15/54cfe8/000000?text=+) `#54cfe8` |
+|   2   | ![#64e375](https://via.placeholder.com/15/64e375/000000?text=+) `#64e375` |
+|   3   | ![#f0ed4d](https://via.placeholder.com/15/f0ed4d/000000?text=+) `#f0ed4d` |
+|   4   | ![#eb9423](https://via.placeholder.com/15/eb9423/000000?text=+) `#eb9423` |
+|  5弱  | ![#f74d4d](https://via.placeholder.com/15/f74d4d/000000?text=+) `#f74d4d` |
+|  5強  | ![#f74d4d](https://via.placeholder.com/15/f74d4d/000000?text=+) `#f74d4d` |
+|  6弱  | ![#f03eb8](https://via.placeholder.com/15/f03eb8/000000?text=+) `#f03eb8` |
+|  6強  | ![#f03eb8](https://via.placeholder.com/15/f03eb8/000000?text=+) `#f03eb8` |
+|   7   | ![#b347ed](https://via.placeholder.com/15/b347ed/000000?text=+) `#b347ed` |

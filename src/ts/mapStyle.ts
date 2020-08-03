@@ -226,7 +226,6 @@ export function zoomLevel(): number {
 
 // 震度観測点を返す
 export function pointGeoJSON(): Feature[] {
-  console.log(features);
   return features;
 }
 
@@ -409,7 +408,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point1':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/1.png',
       })),
       });
@@ -417,7 +416,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point2':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/2.png',
       })),
       });
@@ -425,7 +424,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point3':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/3.png',
         })),
       });
@@ -433,7 +432,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point4':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/4.png',
         })),
       });
@@ -441,7 +440,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point5l':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/5l.png',
         })),
       });
@@ -449,7 +448,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point5u':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/5u.png',
         })),
       });
@@ -457,7 +456,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point6l':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/6l.png',
         })),
       });
@@ -465,7 +464,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point6u':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/6u.png',
         })),
       });
@@ -473,7 +472,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point7':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/7.png',
         })),
       });
@@ -481,7 +480,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     default:
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.4,
+          scale: 0.5,
           src: 'static/icon/1.png',
         })),
       });
