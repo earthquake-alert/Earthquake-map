@@ -13,7 +13,14 @@ import * as Geom from 'ol/geom';
 import {Style, Stroke, Fill, Icon} from 'ol/style';
 import { fromLonLat } from 'ol/proj';
 
-import {setUrl, tileStyle, center, zoomLevel, pointEpicenter} from './mapStyle';
+import {
+  setUrl,
+  tileStyle,
+  center,
+  zoomLevel,
+  pointEpicenter,
+  pointGeoJSON,
+  pointStyle} from './mapStyle';
 import {color} from './color';
 
 const url = location.href;
@@ -125,11 +132,20 @@ const epicenterMap = new Layer.Vector({
   }),
   style: new Style({
     image: new Icon( /** @type {olx.style.IconOptions} */{
-      scale: 0.5,
+      scale: 0.7,
       src: 'static/icon/epi.png',
     }),
   })
 });
+
+// 震度観測点のマップ
+const pointMap = new Layer.Vector({
+  source: new Source.Vector({
+    features: pointGeoJSON(),
+  }),
+  // @ts-ignore
+  style: pointStyle,
+})
 
 // ミニマップ設定
 const overviewMapControl = new control.OverviewMap({
@@ -158,5 +174,6 @@ const map = new Map({
     waterAreaMap,
     prefMap,
     epicenterMap,
+    pointMap,
   ],
 });

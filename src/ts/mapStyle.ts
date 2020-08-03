@@ -1,8 +1,11 @@
-import {Style, Stroke, Fill} from 'ol/style';
+import {Style, Stroke, Fill, Icon} from 'ol/style';
 import RenderFeature from 'ol/render/Feature';
+import Feature from 'ol/Feature';
+import * as Geom from 'ol/geom';
 
 import {district} from './convertPosition';
 import {color} from './color';
+import { fromLonLat } from 'ol/proj';
 
 interface Parameter {
   areas1: string[],
@@ -55,7 +58,10 @@ var count: number = 0
 const centerPosition: number[] = [0, 0];
 const latMaxMin: number[] = [0, 0];
 const lonMaxMin: number[] = [0, 0];
+
 var isOverseas: boolean = false;
+
+var features: Feature[] = [];
 
 // urlからパラメータを取得
 function getUrl(url: string, name: string): string[]{
@@ -120,6 +126,7 @@ export function setUrl(url: string) {
     addEpicenter(parameter.epicenter);
   }
 
+  setGeoJSON();
 }
 
 // 中心座標を求める
@@ -131,6 +138,51 @@ export function center(): number[] {
     return [(139.570312+centerPosition[1]) / (count+1), (35.621581+centerPosition[0]) / (count+1)];
   }
   return [centerPosition[1] / count, centerPosition[0] / count];
+}
+
+// GeoJSONを設定
+function setGeoJSON() {
+  for(let element of parameter.point1){
+    addGeoJSON(element, 'point1')
+  }
+  for(let element of parameter.point2){
+    addGeoJSON(element, 'point2')
+  }
+  for(let element of parameter.point3){
+    addGeoJSON(element, 'point3')
+  }
+  for(let element of parameter.point4){
+    addGeoJSON(element, 'point4')
+  }
+  for(let element of parameter.point5l){
+    addGeoJSON(element, 'point5l')
+  }
+  for(let element of parameter.point5u){
+    addGeoJSON(element, 'point5u')
+  }
+  for(let element of parameter.point6l){
+    addGeoJSON(element, 'point6l')
+  }
+  for(let element of parameter.point6u){
+    addGeoJSON(element, 'point6u')
+  }
+  for(let element of parameter.point7){
+    addGeoJSON(element, 'point7')
+  }
+}
+
+// GeoJSONに各ポイントを追加
+function addGeoJSON(point: string, si: string){
+  const dividedPint = point.split(':');
+  const lon = parseFloat(dividedPint[0]);
+  const lat = parseFloat(dividedPint[1]);
+
+  features.push(
+   new Feature({
+    type: si,
+    geometry: new Geom.Point(fromLonLat([lat, lon])),
+   })
+  )
 }
 
 // 震源を返す
@@ -170,6 +222,12 @@ export function zoomLevel(): number {
     }
     return 6;
   }
+}
+
+// 震度観測点を返す
+export function pointGeoJSON(): Feature[] {
+  console.log(features);
+  return features;
 }
 
 // エリアタイル（細分区域）
@@ -236,7 +294,7 @@ function positionCalculate(metaData: number[]) {
   }
 }
 
-// style
+// 細分区域のstyle
 export function tileStyle(feature: RenderFeature, resolution: number): Style{
 
   const properties = feature.getProperties();
@@ -341,4 +399,91 @@ export function tileStyle(feature: RenderFeature, resolution: number): Style{
       color: color('areaStroke'),
     }),
   });
+}
+
+// 震度観測点のstyle
+export function pointStyle(feature: RenderFeature, resolution: number): Style{
+  const seismicIntensity = feature.getProperties().type;
+
+  switch(seismicIntensity){
+    case 'point1':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/1.png',
+      })),
+      });
+
+    case 'point2':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/2.png',
+      })),
+      });
+
+    case 'point3':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/3.png',
+        })),
+      });
+
+    case 'point4':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/4.png',
+        })),
+      });
+
+    case 'point5l':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/5l.png',
+        })),
+      });
+
+    case 'point5u':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/5u.png',
+        })),
+      });
+
+    case 'point6l':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/6l.png',
+        })),
+      });
+
+    case 'point6u':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/6u.png',
+        })),
+      });
+
+    case 'point7':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/7.png',
+        })),
+      });
+
+    default:
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */ ({
+          scale: 0.4,
+          src: 'static/icon/1.png',
+        })),
+      });
+  }
 }
