@@ -92,6 +92,12 @@ export function center(): number[] {
   return [centerPosition[1] / count, centerPosition[0] / count];
 }
 
+export function pointEpicenter(): number[] {
+  const lon = parseFloat(parameter.epicenter[0]);
+  const lat = parseFloat(parameter.epicenter[1]);
+  return [lat, lon];
+}
+
 // 拡大率を求める
 export function zoomLevel(): number {
   // 海外の場合

@@ -1,29 +1,34 @@
+import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import VectorTileSource from 'ol/source/VectorTile';
-import MVTFormat from 'ol/format/MVT';
-import { fromLonLat } from 'ol/proj';
-import {Style, Stroke, Fill} from 'ol/style';
-import {OverviewMap, Attribution, defaults as defaultControls} from 'ol/control';
-import 'ol/ol.css';
+import Feature from 'ol/Feature';
 
-import {setUrl, tileStyle, center, zoomLevel} from './mapStyle';
+import * as Layer from 'ol/layer';
+import * as Source from 'ol/source';
+import * as control from 'ol/control';
+import * as Format from 'ol/format';
+import * as Geom from 'ol/geom';
+
+
+import {Style, Stroke, Fill, Icon} from 'ol/style';
+import { fromLonLat } from 'ol/proj';
+
+import {setUrl, tileStyle, center, zoomLevel, pointEpicenter} from './mapStyle';
 import {color} from './color';
 
 const url = location.href;
 setUrl(url);
 
 // 地図データ
-const attribution = new Attribution({
+const attribution = new control.Attribution({
   className: 'copyright',
   collapsible: false,
 });
 
 // 都道府県のマップ
-const prefMap = new VectorTileLayer({
-  source: new VectorTileSource({
-    format: new MVTFormat(),
+const prefMap = new Layer.VectorTile({
+  source: new Source.VectorTile({
+    format: new Format.MVT(),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref_jma/{z}/{x}/{y}.pbf',
     attributions: [
       '© Earthquake alert(YutoWatanabe) / 地図データ: 国土数値情報(湖沼データ), 気象庁(地震情報／細分区域, 緊急地震速報／府県予報区)',
@@ -40,9 +45,9 @@ const prefMap = new VectorTileLayer({
 });
 
 // 水域マップ
-const waterAreaMap = new VectorTileLayer({
-  source: new VectorTileSource({
-    format: new MVTFormat(),
+const waterAreaMap = new Layer.VectorTile({
+  source: new Source.VectorTile({
+    format: new Format.MVT(),
     url: 'https://earthquake-alert.github.io/maps/pbf_water_area/waterArea/{z}/{x}/{y}.pbf',
   }),
   style: new Style({
@@ -56,9 +61,9 @@ const waterAreaMap = new VectorTileLayer({
 });
 
 // 細分区域のマップ
-const distlictMap = new VectorTileLayer({
-  source: new VectorTileSource({
-    format: new MVTFormat({}),
+const distlictMap = new Layer.VectorTile({
+  source: new Source.VectorTile({
+    format: new Format.MVT({}),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/distlict_jma/{z}/{x}/{y}.pbf',
   }),
   // @ts-ignore
@@ -70,9 +75,9 @@ const distlictMap = new VectorTileLayer({
 
 
 // 世界のマップ
-const worldMap = new VectorTileLayer({
-  source: new VectorTileSource({
-    format: new MVTFormat(),
+const worldMap = new Layer.VectorTile({
+  source: new Source.VectorTile({
+    format: new Format.MVT(),
     url: 'https://earthquake-alert.github.io/maps/pbf_world/world/{z}/{x}/{y}.pbf',
     attributions: [
       '© Earthquake alert(YutoWatanabe) / 地図データ: Natural Earth',
@@ -92,9 +97,9 @@ const worldMap = new VectorTileLayer({
 })
 
 // ミニマップ用日本のマップ（都道府県と同じ）
-const overviewMap = new VectorTileLayer({
-  source: new VectorTileSource({
-    format: new MVTFormat(),
+const overviewMap = new Layer.VectorTile({
+  source: new Source.VectorTile({
+    format: new Format.MVT(),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref_jma/{z}/{x}/{y}.pbf',
   }),
   style: new Style({
@@ -109,8 +114,25 @@ const overviewMap = new VectorTileLayer({
   minZoom: 0,
 });
 
+// 震源地
+const epicenterMap = new Layer.Vector({
+  source: new Source.Vector({
+    features: [
+      new Feature({
+        geometry: new Geom.Point(fromLonLat(pointEpicenter())),
+      }),
+    ],
+  }),
+  style: new Style({
+    image: new Icon( /** @type {olx.style.IconOptions} */{
+      scale: 0.5,
+      src: 'static/icon/epi.png',
+    }),
+  })
+});
+
 // ミニマップ設定
-const overviewMapControl = new OverviewMap({
+const overviewMapControl = new control.OverviewMap({
   className: 'ol-overviewmap ol-custom-overviewmap',
   layers: [
     overviewMap,
@@ -120,7 +142,7 @@ const overviewMapControl = new OverviewMap({
 
 // マップ描画
 const map = new Map({
-  controls: defaultControls().extend([
+  controls: control.defaults().extend([
     overviewMapControl,
     attribution,
   ]),
@@ -135,5 +157,6 @@ const map = new Map({
     distlictMap,
     waterAreaMap,
     prefMap,
+    epicenterMap,
   ],
 });
