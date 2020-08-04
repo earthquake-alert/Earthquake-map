@@ -1,3 +1,10 @@
+/**
+ * @author: Yuto Watanabe
+ * @version: 1.0.0
+ *
+ * Copyright (c) 2020 Earthquake alert
+ */
+
 import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';

@@ -1,7 +1,8 @@
 # Earthquake Map
 
 <p style="text-align: center">
-  <img src="assets/title.png">
+  <img src="assets/title.png" width="45%">
+  <img src="assets/震度速報.png" width="45%">
 </p>
 
 ## TL;DR
@@ -31,19 +32,21 @@
 ## Run
 
 ```bash
-# installs (need yarn and pipenv installed)
+# installs (need yarn and docker installed)
 yarn install
-pipenv install
 
 # build
 yarn run build
 
 # run server
-pipenv shell
->>> python src/main.py
+docker-compose up -d
 
 # connect to http://localhost:5000/
 ```
+
+## パラメータの説明
+
+[パラメータの説明](./assets/parameters.md)
 
 ## 各震度の色
 
@@ -58,3 +61,9 @@ pipenv shell
 |  6弱  | ![#f03eb8](https://via.placeholder.com/15/f03eb8/000000?text=+) `#f03eb8` |
 |  6強  | ![#f03eb8](https://via.placeholder.com/15/f03eb8/000000?text=+) `#f03eb8` |
 |   7   | ![#b347ed](https://via.placeholder.com/15/b347ed/000000?text=+) `#b347ed` |
+
+## ライセンス
+
+MIT
+
+使用した場合、issueにて報告してくれるとありがたいです。

@@ -1,3 +1,10 @@
+/**
+ * @author: Yuto Watanabe
+ * @version: 1.0.0
+ *
+ * Copyright (c) 2020 Earthquake alert
+ */
+
 export function color(type: string): string {
     const colorData : {[key: string]: string} = {
         'land': '#262626',

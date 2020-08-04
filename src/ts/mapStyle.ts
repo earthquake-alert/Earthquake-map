@@ -1,3 +1,10 @@
+/**
+ * @author: Yuto Watanabe
+ * @version: 1.0.0
+ *
+ * Copyright (c) 2020 Earthquake alert
+ */
+
 import {Style, Stroke, Fill, Icon} from 'ol/style';
 import RenderFeature from 'ol/render/Feature';
 import Feature from 'ol/Feature';
