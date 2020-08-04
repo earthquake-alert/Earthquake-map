@@ -102,15 +102,15 @@ export function setUrl(url: string) {
   // 震源地 [lon, lat]
   parameter.epicenter = getUrl(url, 'epi');
 
-  addPosition(parameter.areas1);
-  addPosition(parameter.areas2);
-  addPosition(parameter.areas3);
-  addPosition(parameter.areas4);
-  addPosition(parameter.areas5l);
-  addPosition(parameter.areas5u);
-  addPosition(parameter.areas6l);
-  addPosition(parameter.areas6u);
-  addPosition(parameter.areas7);
+  addPosition(parameter.areas1, 'point1');
+  addPosition(parameter.areas2, 'point2');
+  addPosition(parameter.areas3, 'point3');
+  addPosition(parameter.areas4, 'point4');
+  addPosition(parameter.areas5l, 'point5l');
+  addPosition(parameter.areas5u, 'point5u');
+  addPosition(parameter.areas6l, 'point6l');
+  addPosition(parameter.areas6u, 'point6u');
+  addPosition(parameter.areas7, 'point7');
 
   addPoint(parameter.point1);
   addPoint(parameter.point2);
@@ -224,10 +224,12 @@ export function pointGeoJSON(): Feature[] {
 }
 
 // エリアタイル（細分区域）
-function addPosition(codes: string[]){
+function addPosition(codes: string[], si: string){
   for(let code of codes){
     const metaData = district(code);
     positionCalculate(metaData);
+
+    addGeoJSON(`${metaData[0]}:${metaData[1]}`, si)
   }
 }
 
