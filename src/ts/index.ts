@@ -132,7 +132,7 @@ const epicenterMap = new Layer.Vector({
   }),
   style: new Style({
     image: new Icon( /** @type {olx.style.IconOptions} */{
-      scale: 1,
+      scale: 0.7,
       src: 'static/icon/epi.png',
     }),
   })

@@ -4,12 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <title>OpenLayers Vector Tiles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    <title>Earthquake Map</title>
 </head>
 
 <body>
-    <div class="map" id="map"></div>
-    <script src="static/js/bundle.js"></script>
+    <header class="data">
+        <div class="title">
+            {{title}}
+        </div>
+        <div class="now">
+            生成日時: {{date}}
+        </div>
+    </header>
+    <div class="map" id="map">
+        <script src="static/js/bundle.js"></script>
+    </div>
 </body>
 
 </html>

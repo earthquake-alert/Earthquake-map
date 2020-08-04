@@ -11,6 +11,8 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #33424f;
+    position: absolute;
+    z-index: 0;
 }
 
 .map .ol-custom-overviewmap .ol-overviewmap-box {
@@ -67,10 +69,11 @@ html, body {
     margin: 0;
     border-radius: 0 !important;
     background-color: #a1a1a1 !important;
+    opacity: 80%;
 }
 
 .map .copyright button {
-    display:none;
+    display: none;
 }
 
 .map .copyright ul {
@@ -78,7 +81,32 @@ html, body {
     margin: 0;
 }
 
+.ol-zoom {
+    display: none;
+}
+
 /* copyright の文字*/
 .map .copyright ul li {
-    font-size: 2px;
+    font-size: 0.5em;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.data {
+    padding: 1 8 5 8;
+    color: #ffffff;
+    background-color: #67728a;
+    position: absolute;
+    z-index: 1;
+    opacity: 80%;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.title {
+    text-align: center;
+    font-size: 3em;
+
+}
+
+.now {
+    font-size: 1em;
 }
