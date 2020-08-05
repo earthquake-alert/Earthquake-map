@@ -32,11 +32,7 @@
 ## Run
 
 ```bash
-# installs (need yarn and docker installed)
-yarn install
-
-# build
-yarn run build
+# need docker installed
 
 # run server
 docker-compose up -d
