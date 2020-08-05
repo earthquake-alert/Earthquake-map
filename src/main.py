@@ -8,8 +8,14 @@ app = Flask(__name__)
 @app.route('/')
 def root():
     title = request.args.get('ti') or 'No data.'
-    jst = timezone(timedelta(hours=+9), 'JST')
-    now = datetime.now(jst)
+    date = request.args.get('date') or None
+
+    if date is None:
+        jst = timezone(timedelta(hours=+9), 'JST')
+        now = datetime.now(jst)
+    else:
+        now = datetime.strptime(str(date), r'%Y%m%d%H%M%S')
+
     return render_template('index.html', title=title, date=now.strftime('%Y年%m月%d日 %H:%M:%S'))
 
 
