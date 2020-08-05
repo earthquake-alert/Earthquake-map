@@ -18,7 +18,7 @@ import * as Geom from 'ol/geom';
 
 
 import {Style, Stroke, Fill, Icon} from 'ol/style';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, transformExtent } from 'ol/proj';
 
 import {
   setUrl,
@@ -166,6 +166,12 @@ const overviewMapControl = new control.OverviewMap({
     overviewMap,
   ],
   collapsed: false,
+  view: new View({
+    extent: transformExtent([126.914062,26.588527,149.414062,45.213003], 'EPSG:4326', 'EPSG:3857'),
+    minZoom: 0,
+    maxZoom: 4,
+    zoom: 4,
+  })
 })
 
 // マップ描画

@@ -39,8 +39,8 @@ html, body {
 .map .ol-custom-overviewmap .ol-overviewmap-map {
     background-color: #1f1f1f;
     border: none;
-    width: 20.8rem;
-    height: 11.7rem;
+    width: 24vw;
+    height: 13.5vw;
 }
 
 .ol-overviewmap-map {
@@ -62,7 +62,7 @@ html, body {
 
 .copyright {
     top: auto;
-    bottom: 0.5rem;
+    bottom: 1.2vw;
     left: 0;
     right: auto;
     padding: 0;
@@ -77,7 +77,7 @@ html, body {
 }
 
 .map .copyright ul {
-    padding: 0 0.2rem 0 0.5rem;
+    padding: 0 1vw 0 0.8vw;
     margin: 0;
 }
 
@@ -87,12 +87,12 @@ html, body {
 
 /* copyright の文字*/
 .map .copyright ul li {
-    font-size: 1rem;
+    font-size: 1vw;
     font-family: 'Noto Sans JP', sans-serif;
 }
 
 .data {
-    padding: 0.3rem 1rem 1rem 1rem;
+    padding: .5vw 1.5vw 1vw 1.5vw;
     color: #ffffff;
     background-color: #67728a;
     position: absolute;
@@ -103,11 +103,11 @@ html, body {
 
 .title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 3vw;
 
 }
 
 .now {
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.5vw;
 }
