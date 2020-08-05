@@ -4,6 +4,6 @@ services:
         container_name: EarthquakeMap
         build: .
         ports:
-            - '127.0.0.1:5000:5000'
+            - '127.0.0.1:8080:8080'
         tty: true
         command: python3 src/main.py

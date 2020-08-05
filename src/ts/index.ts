@@ -121,7 +121,8 @@ const overviewMap = new Layer.VectorTile({
       color: color('minimapLand'),
     }),
     stroke: new Stroke({
-      color: color('prefCountryStroke'),
+      color: color('minimapStroke'),
+      width: 0.5,
     }),
   }),
   maxZoom: 10,
@@ -142,7 +143,9 @@ const epicenterMap = new Layer.Vector({
       scale: 0.7,
       src: 'static/icon/epi.png',
     }),
-  })
+  }),
+  maxZoom: 10,
+  minZoom: 0,
 });
 
 // 震度観測点のマップ
@@ -152,6 +155,8 @@ const pointMap = new Layer.Vector({
   }),
   // @ts-ignore
   style: pointStyle,
+  maxZoom: 10,
+  minZoom: 0,
 })
 
 // ミニマップ設定

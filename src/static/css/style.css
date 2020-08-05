@@ -26,7 +26,7 @@ html, body {
 .map .ol-custom-overviewmap,
 .map .ol-custom-overviewmap.ol-uncollapsible {
     border: 0.25em solid #c2c2c2;
-    opacity: 80%;
+    opacity: 90%;
     margin: 0;
     padding: 0;
     border-radius: 0 0 0 0;

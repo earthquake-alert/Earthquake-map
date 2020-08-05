@@ -8,7 +8,7 @@
 export function color(type: string): string {
     const colorData : {[key: string]: string} = {
         'land': '#262626',
-        'minimapLand': '#474747',
+        'minimapLand': '#b8b8b8',
         '1': '#54cfe8',
         '2': '#64e375',
         '3': '#f0ed4d',
@@ -30,6 +30,7 @@ export function color(type: string): string {
         'prefCountryStroke': '#a6a6a6',
         'areaStroke': '#4a4a4a',
         'waterArea': '#5d7991',
+        'minimapStroke': '#ffffff',
     };
     const isColor = colorData[type];
     if (typeof isColor != 'undefined'){

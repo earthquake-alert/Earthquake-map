@@ -41,7 +41,7 @@ yarn run build
 # run server
 docker-compose up -d
 
-# connect to http://localhost:5000/
+# connect to http://localhost:8080/
 ```
 
 ## パラメータの説明
