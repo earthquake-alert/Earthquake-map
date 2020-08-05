@@ -176,8 +176,8 @@ const map = new Map({
   ]),
   target: 'map',
   view: new View({
-    center: fromLonLat(center()),
-    zoom: zoomLevel(),
+    center: fromLonLat([139.570312, 35.621581]),
+    zoom: 6,
     maxZoom: 10,
   }),
   layers: [
@@ -189,3 +189,9 @@ const map = new Map({
     pointMap,
   ],
 });
+
+const markerSource = new Source.Vector({
+    features: pointGeoJSON(),
+  });
+
+map.getView().fit(markerSource.getExtent());
