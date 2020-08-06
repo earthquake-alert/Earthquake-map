@@ -5,6 +5,12 @@
  * Copyright (c) 2020 Earthquake alert
  */
 
+ /**
+  * location information
+  * https://github.com/9SQ/jma-eqarea-centroid
+  *
+  */
+
 interface Data {
   lat: string,
   lon: string,
