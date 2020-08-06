@@ -66,7 +66,7 @@ const centerPosition: number[] = [0, 0];
 const latMaxMin: number[] = [0, 0];
 const lonMaxMin: number[] = [0, 0];
 
-var isOverseas: boolean = false;
+export var isOverseas: boolean = false;
 
 var features: Feature[] = [];
 

@@ -27,7 +27,8 @@ import {
   zoomLevel,
   pointEpicenter,
   pointGeoJSON,
-  pointStyle} from './mapStyle';
+  pointStyle,
+  isOverseas} from './mapStyle';
 import {color} from './color';
 
 const url = location.href;
@@ -174,12 +175,15 @@ const overviewMapControl = new control.OverviewMap({
   })
 })
 
+var mapControl = [attribution]
+
+if (!isOverseas){
+  mapControl.push(overviewMapControl)
+}
+
 // マップ描画
 const map = new Map({
-  controls: control.defaults().extend([
-    overviewMapControl,
-    attribution,
-  ]),
+  controls: control.defaults().extend(mapControl),
   target: 'map',
   view: new View({
     center: fromLonLat(center()),
