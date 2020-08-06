@@ -45,7 +45,7 @@ const prefMap = new Layer.VectorTile({
     format: new Format.MVT(),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/pref_jma/{z}/{x}/{y}.pbf',
     attributions: [
-      '© Earthquake alert(YutoWatanabe) / 地図データ: 国土数値情報(湖沼データ), 気象庁(地震情報／細分区域, 緊急地震速報／府県予報区)',
+      'Copyright(c) 2020 Earthquake alert / 地図データ: 国土数値情報(湖沼データ), 気象庁(地震情報/細分区域, 緊急地震速報/府県予報区)',
     ],
   }),
   style: new Style({
@@ -94,7 +94,7 @@ const worldMap = new Layer.VectorTile({
     format: new Format.MVT(),
     url: 'https://earthquake-alert.github.io/maps/pbf_world/world/{z}/{x}/{y}.pbf',
     attributions: [
-      '© Earthquake alert(YutoWatanabe) / 地図データ: Natural Earth',
+      'Copyright(c) 2020 Earthquake alert / 地図データ: Natural Earth',
     ],
   }),
   style: new Style({
