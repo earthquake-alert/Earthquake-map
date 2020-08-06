@@ -213,12 +213,15 @@ export function zoomLevel(): number {
     const distance = Math.sqrt(Math.pow((latMaxMin[0]-latMaxMin[1]), 2) + Math.pow((lonMaxMin[0]-lonMaxMin[1]), 2));
 
     if(distance < 2) {
-      return 9;
+      return 10;
     }
     if(distance >= 2 && distance < 5){
+      return 9;
+    }
+    if(distance >= 5 && distance < 7){
       return 8;
     }
-    if(distance >= 5){
+    if(distance >= 7 && distance < 10){
       return 7;
     }
     return 6;
