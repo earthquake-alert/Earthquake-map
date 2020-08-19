@@ -1,18 +1,18 @@
-/**
+/*!
  * @author: Yuto Watanabe
  * @version: 1.0.0
  *
  * Copyright (c) 2020 Earthquake alert
  */
 
-import {Style, Stroke, Fill, Icon} from 'ol/style';
-import RenderFeature from 'ol/render/Feature';
 import Feature from 'ol/Feature';
 import * as Geom from 'ol/geom';
 
-import {district} from './convertPosition';
-import {color} from './color';
 import { fromLonLat } from 'ol/proj';
+import RenderFeature from 'ol/render/Feature';
+import {Style, Stroke, Fill, Icon} from 'ol/style';
+import {color} from './color';
+import {district} from './convertPosition';
 
 interface Parameter {
   areas1: string[],
@@ -37,7 +37,7 @@ interface Parameter {
   point7: string[],
 }
 
-var parameter: Parameter  = {
+const parameter: Parameter  = {
   areas1: [],
   areas2: [],
   areas3: [],
@@ -60,15 +60,16 @@ var parameter: Parameter  = {
   point7: [],
 };
 
-var count: number = 0
+let count = 0;
 // [lon, lat]
 const centerPosition: number[] = [0, 0];
 const latMaxMin: number[] = [0, 0];
 const lonMaxMin: number[] = [0, 0];
 
-export var isOverseas: boolean = false;
+export let isOverseas = false;
+export let isTileColor = false;
 
-var features: Feature[] = [];
+const features: Feature[] = [];
 
 // urlからパラメータを取得
 function getUrl(url: string, name: string): string[]{
@@ -82,7 +83,7 @@ function getUrl(url: string, name: string): string[]{
 }
 
 // urlのパラメータから変数を設定
-export function setUrl(url: string) {
+export function setUrl(url: string): void {
   // areas 細分区域タイル塗りつぶし
   parameter.areas1 = getUrl(url, 'areas1');
   parameter.areas2 = getUrl(url, 'areas2');
@@ -93,7 +94,7 @@ export function setUrl(url: string) {
   parameter.areas6l = getUrl(url, 'areas6l');
   parameter.areas6u = getUrl(url, 'areas6u');
   parameter.areas7 = getUrl(url, 'areas7');
-  parameter.pref = getUrl(url, 'pref');
+  // parameter.pref = getUrl(url, 'pref');
 
   // 震度観測点
   parameter.point1 = getUrl(url, 'point1');
@@ -106,8 +107,21 @@ export function setUrl(url: string) {
   parameter.point6u = getUrl(url, 'point6u');
   parameter.point7 = getUrl(url, 'point7');
 
-  // 震源地 [lon, lat]
+  // 震源地 [lon, lat] & featuresに追加
   parameter.epicenter = getUrl(url, 'epi');
+
+  if (parameter.epicenter.length != 0){
+    addEpicenter(parameter.epicenter);
+    const lon = parseFloat(parameter.epicenter[0]);
+    const lat = parseFloat(parameter.epicenter[1]);
+
+    features.push(
+      new Feature({
+        type: 'epi',
+        geometry: new Geom.Point(fromLonLat([lat, lon])),
+      })
+    );
+  }
 
   addPosition(parameter.areas1, 'point1');
   addPosition(parameter.areas2, 'point2');
@@ -129,10 +143,6 @@ export function setUrl(url: string) {
   addPoint(parameter.point6u);
   addPoint(parameter.point7);
 
-  if (parameter.epicenter.length > 0){
-    addEpicenter(parameter.epicenter);
-  }
-
   setGeoJSON();
 }
 
@@ -149,32 +159,32 @@ export function center(): number[] {
 
 // GeoJSONを設定
 function setGeoJSON() {
-  for(let element of parameter.point1){
-    addGeoJSON(element, 'point1')
+  for(const element of parameter.point1){
+    addGeoJSON(element, 'point1');
   }
-  for(let element of parameter.point2){
-    addGeoJSON(element, 'point2')
+  for(const element of parameter.point2){
+    addGeoJSON(element, 'point2');
   }
-  for(let element of parameter.point3){
-    addGeoJSON(element, 'point3')
+  for(const element of parameter.point3){
+    addGeoJSON(element, 'point3');
   }
-  for(let element of parameter.point4){
-    addGeoJSON(element, 'point4')
+  for(const element of parameter.point4){
+    addGeoJSON(element, 'point4');
   }
-  for(let element of parameter.point5l){
-    addGeoJSON(element, 'point5l')
+  for(const element of parameter.point5l){
+    addGeoJSON(element, 'point5l');
   }
-  for(let element of parameter.point5u){
-    addGeoJSON(element, 'point5u')
+  for(const element of parameter.point5u){
+    addGeoJSON(element, 'point5u');
   }
-  for(let element of parameter.point6l){
-    addGeoJSON(element, 'point6l')
+  for(const element of parameter.point6l){
+    addGeoJSON(element, 'point6l');
   }
-  for(let element of parameter.point6u){
-    addGeoJSON(element, 'point6u')
+  for(const element of parameter.point6u){
+    addGeoJSON(element, 'point6u');
   }
-  for(let element of parameter.point7){
-    addGeoJSON(element, 'point7')
+  for(const element of parameter.point7){
+    addGeoJSON(element, 'point7');
   }
 }
 
@@ -189,14 +199,7 @@ function addGeoJSON(point: string, si: string){
     type: si,
     geometry: new Geom.Point(fromLonLat([lat, lon])),
    })
-  )
-}
-
-// 震源を返す
-export function pointEpicenter(): number[] {
-  const lon = parseFloat(parameter.epicenter[0]);
-  const lat = parseFloat(parameter.epicenter[1]);
-  return [lat, lon];
+  );
 }
 
 // 拡大率を求める
@@ -212,34 +215,57 @@ export function zoomLevel(): number {
     // 3平方の定理を用いて対角線長を求める。
     const distance = Math.sqrt(Math.pow((latMaxMin[0]-latMaxMin[1]), 2) + Math.pow((lonMaxMin[0]-lonMaxMin[1]), 2));
 
-    if(distance < 2) {
-      return 10;
+    if(distance < 1){
+      return isTileColor? 9 : 10;
     }
-    if(distance >= 2 && distance < 5){
-      return 9;
+    if(distance >= 1 && distance < 2){
+      return isTileColor? 8 : 10;
     }
-    if(distance >= 5 && distance < 7){
-      return 8;
+    if(distance >= 2 && distance < 3){
+      return isTileColor? 8 : 9;
     }
-    if(distance >= 7 && distance < 10){
-      return 7;
+    if(distance >= 3 && distance < 4){
+      return isTileColor? 8 : 9;
+    }
+    if(distance >= 4 && distance < 5){
+      return isTileColor? 7 : 9;
+    }
+    if(distance >= 5 && distance < 6){
+      return isTileColor? 7 : 8;
+    }
+    if(distance >= 6 && distance < 7){
+      return isTileColor? 7 : 8;
+    }
+    if(distance >= 7 && distance < 8){
+      return isTileColor? 7 : 8;
+    }
+    if(distance >= 8 && distance < 9){
+      return isTileColor? 7 : 8;
+    }
+    if(distance >= 9 && distance < 10){
+      return isTileColor? 7 : 8;
+    }
+    if(distance >= 10){
+      return isTileColor ? 7 : 8;
     }
     return 6;
   }
 }
 
-// 震度観測点を返す
+// 震度観測点、震源を返す
 export function pointGeoJSON(): Feature[] {
   return features;
 }
 
 // エリアタイル（細分区域）
 function addPosition(codes: string[], si: string){
-  for(let code of codes){
+  isTileColor = true;
+
+  for(const code of codes){
     const metaData = district(code);
     positionCalculate(metaData);
 
-    addGeoJSON(`${metaData[0]}:${metaData[1]}`, si)
+    addGeoJSON(`${metaData[0]}:${metaData[1]}`, si);
   }
 }
 
@@ -258,8 +284,8 @@ function addEpicenter(position: string[]) {
 
 // 震度観測点
 function addPoint(position: string[]){
-  for(let element of position){
-    const areaPosition =  element.split(':')
+  for(const element of position){
+    const areaPosition =  element.split(':');
     if(areaPosition.length != 2){
       return;
     }
@@ -300,7 +326,7 @@ function positionCalculate(metaData: number[]) {
 }
 
 // 細分区域のstyle
-export function tileStyle(feature: RenderFeature, resolution: number): Style{
+export function tileStyle(feature: RenderFeature): Style{
 
   const properties = feature.getProperties();
 
@@ -406,15 +432,15 @@ export function tileStyle(feature: RenderFeature, resolution: number): Style{
   });
 }
 
-// 震度観測点のstyle
-export function pointStyle(feature: RenderFeature, resolution: number): Style{
+// 震度観測点、震源のstyle
+export function pointStyle(feature: RenderFeature): Style{
   const seismicIntensity = feature.getProperties().type;
 
   switch(seismicIntensity){
     case 'point1':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/1.png',
       })),
       });
@@ -422,7 +448,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point2':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/2.png',
       })),
       });
@@ -430,7 +456,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point3':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/3.png',
         })),
       });
@@ -438,7 +464,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point4':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/4.png',
         })),
       });
@@ -446,7 +472,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point5l':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/5l.png',
         })),
       });
@@ -454,7 +480,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point5u':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/5u.png',
         })),
       });
@@ -462,7 +488,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point6l':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/6l.png',
         })),
       });
@@ -470,7 +496,7 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point6u':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/6u.png',
         })),
       });
@@ -478,15 +504,23 @@ export function pointStyle(feature: RenderFeature, resolution: number): Style{
     case 'point7':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/7.png',
         })),
+      });
+
+    case 'epi':
+      return new Style({
+        image: new Icon( /** @type {olx.style.IconOptions} */{
+          scale: 1.5,
+          src: 'static/icon/epi.png',
+        }),
       });
 
     default:
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.5,
+          scale: 0.8,
           src: 'static/icon/1.png',
         })),
       });

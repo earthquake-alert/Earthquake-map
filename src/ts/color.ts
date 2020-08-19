@@ -1,4 +1,4 @@
-/**
+/*!
  * @author: Yuto Watanabe
  * @version: 1.0.0
  *

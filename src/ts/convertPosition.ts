@@ -1,11 +1,11 @@
-/**
+/*!
  * @author: Yuto Watanabe
  * @version: 1.0.0
  *
  * Copyright (c) 2020 Earthquake alert
  */
 
- /**
+ /*!
   * location information
   * https://github.com/9SQ/jma-eqarea-centroid
   *

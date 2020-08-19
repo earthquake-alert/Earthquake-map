@@ -1,4 +1,4 @@
-/**
+/*!
  * @author: Yuto Watanabe
  * @version: 1.0.0
  *
@@ -6,30 +6,29 @@
  */
 
 import 'ol/ol.css';
+import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import Feature from 'ol/Feature';
 
-import * as Layer from 'ol/layer';
-import * as Source from 'ol/source';
 import * as control from 'ol/control';
 import * as Format from 'ol/format';
 import * as Geom from 'ol/geom';
+import * as Layer from 'ol/layer';
+import { fromLonLat, transformExtent } from 'ol/proj';
+import * as Source from 'ol/source';
 
 
 import {Style, Stroke, Fill, Icon} from 'ol/style';
-import { fromLonLat, transformExtent } from 'ol/proj';
 
+import {color} from './color';
 import {
   setUrl,
   tileStyle,
   center,
   zoomLevel,
-  pointEpicenter,
   pointGeoJSON,
   pointStyle,
   isOverseas} from './mapStyle';
-import {color} from './color';
 
 const url = location.href;
 setUrl(url);
@@ -81,6 +80,7 @@ const districtMap = new Layer.VectorTile({
     format: new Format.MVT({}),
     url: 'https://earthquake-alert.github.io/maps/pbf_japan/distlict_jma/{z}/{x}/{y}.pbf',
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   style: tileStyle,
   maxZoom: 10,
@@ -109,7 +109,7 @@ const worldMap = new Layer.VectorTile({
   maxZoom: 5,
   minZoom: 0,
   minResolution: 5000,
-})
+});
 
 // ミニマップ用日本のマップ（都道府県と同じ）
 const overviewMap = new Layer.VectorTile({
@@ -130,35 +130,17 @@ const overviewMap = new Layer.VectorTile({
   minZoom: 0,
 });
 
-// 震源地のマッピング
-const epicenterMap = new Layer.Vector({
-  source: new Source.Vector({
-    features: [
-      new Feature({
-        geometry: new Geom.Point(fromLonLat(pointEpicenter())),
-      }),
-    ],
-  }),
-  style: new Style({
-    image: new Icon( /** @type {olx.style.IconOptions} */{
-      scale: 0.7,
-      src: 'static/icon/epi.png',
-    }),
-  }),
-  maxZoom: 10,
-  minZoom: 0,
-});
-
 // 震度観測点のマップ
 const pointMap = new Layer.Vector({
   source: new Source.Vector({
     features: pointGeoJSON(),
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   style: pointStyle,
   maxZoom: 10,
   minZoom: 0,
-})
+});
 
 // ミニマップ設定
 const overviewMapControl = new control.OverviewMap({
@@ -173,12 +155,13 @@ const overviewMapControl = new control.OverviewMap({
     maxZoom: 4,
     zoom: 4,
   })
-})
+});
 
-var mapControl = [attribution]
+const mapControl = [attribution];
 
+// 海外の場合はミニマップを表示しない
 if (!isOverseas){
-  mapControl.push(overviewMapControl)
+  mapControl.push(overviewMapControl);
 }
 
 // マップ描画
@@ -195,7 +178,6 @@ const map = new Map({
     districtMap,
     waterAreaMap,
     prefMap,
-    epicenterMap,
     pointMap,
   ],
 });
