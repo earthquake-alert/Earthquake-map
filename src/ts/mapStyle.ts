@@ -246,7 +246,7 @@ export function zoomLevel(): number {
       return isTileColor? 7 : 8;
     }
     if(distance >= 10){
-      return isTileColor ? 7 : 8;
+      return isTileColor ? 7 : 7;
     }
     return 6;
   }
@@ -259,9 +259,8 @@ export function pointGeoJSON(): Feature[] {
 
 // エリアタイル（細分区域）
 function addPosition(codes: string[], si: string){
-  isTileColor = true;
-
   for(const code of codes){
+    isTileColor = true;
     const metaData = district(code);
     positionCalculate(metaData);
 

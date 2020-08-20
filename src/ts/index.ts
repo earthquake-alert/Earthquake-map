@@ -6,19 +6,17 @@
  */
 
 import 'ol/ol.css';
-import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import View from 'ol/View';
 
 import * as control from 'ol/control';
 import * as Format from 'ol/format';
-import * as Geom from 'ol/geom';
 import * as Layer from 'ol/layer';
 import { fromLonLat, transformExtent } from 'ol/proj';
 import * as Source from 'ol/source';
 
 
-import {Style, Stroke, Fill, Icon} from 'ol/style';
+import {Style, Stroke, Fill} from 'ol/style';
 
 import {color} from './color';
 import {
@@ -28,7 +26,9 @@ import {
   zoomLevel,
   pointGeoJSON,
   pointStyle,
-  isOverseas} from './mapStyle';
+  isOverseas,
+  // isTileColor,
+} from './mapStyle';
 
 const url = location.href;
 setUrl(url);
@@ -182,8 +182,12 @@ const map = new Map({
   ],
 });
 
-// const markerSource = new Source.Vector({
-//     features: pointGeoJSON(),
-//   });
+// // タイル塗りつぶし、海外自地震以外は自動的に拡大率を決める
+// if(!(isOverseas || isTileColor)){
+//   console.log("OK");
+//   const markerSource = new Source.Vector({
+//       features: pointGeoJSON(),
+//     });
 
-// map.getView().fit(markerSource.getExtent());
+//   map.getView().fit(markerSource.getExtent());
+// }
