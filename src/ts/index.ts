@@ -27,6 +27,7 @@ import {
   pointGeoJSON,
   pointStyle,
   isOverseas,
+  tsunamiStyle,
   // isTileColor,
 } from './mapStyle';
 
@@ -69,6 +70,20 @@ const waterAreaMap = new Layer.VectorTile({
       color: color('waterArea'),
     }),
   }),
+  maxZoom: 10,
+  minZoom: 0,
+  maxResolution: 5000,
+});
+
+// 津波予報区魔府
+const tsunamiAreaMap = new Layer.VectorTile({
+  source: new Source.VectorTile({
+    format: new Format.MVT(),
+    url: 'https://earthquake-alert.github.io/maps/pbf_japan/tsunami/{z}/{x}/{y}.pbf',
+  }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  style: tsunamiStyle,
   maxZoom: 10,
   minZoom: 0,
   maxResolution: 5000,
@@ -178,11 +193,12 @@ const map = new Map({
     districtMap,
     waterAreaMap,
     prefMap,
+    tsunamiAreaMap,
     pointMap,
   ],
 });
 
-// // タイル塗りつぶし、海外自地震以外は自動的に拡大率を決める
+// タイル塗りつぶし、海外自地震以外は自動的に拡大率を決める
 // if(!(isOverseas || isTileColor)){
 //   console.log("OK");
 //   const markerSource = new Source.Vector({

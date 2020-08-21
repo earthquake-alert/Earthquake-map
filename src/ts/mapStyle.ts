@@ -35,6 +35,7 @@ interface Parameter {
   point6l: string[],
   point6u: string[],
   point7: string[],
+  tsunami: string[],
 }
 
 const parameter: Parameter  = {
@@ -58,6 +59,7 @@ const parameter: Parameter  = {
   point6l: [],
   point6u: [],
   point7: [],
+  tsunami: [],
 };
 
 let count = 0;
@@ -68,6 +70,7 @@ const lonMaxMin: number[] = [0, 0];
 
 export let isOverseas = false;
 export let isTileColor = false;
+let isTsunami = false;
 
 const features: Feature[] = [];
 
@@ -106,6 +109,12 @@ export function setUrl(url: string): void {
   parameter.point6l = getUrl(url, 'point6l');
   parameter.point6u = getUrl(url, 'point6u');
   parameter.point7 = getUrl(url, 'point7');
+
+  // 津波
+  parameter.tsunami = getUrl(url, 'tsunami');
+  if (parameter.tsunami.length != 0){
+    isTsunami = true;
+  }
 
   // 震源地 [lon, lat] & featuresに追加
   parameter.epicenter = getUrl(url, 'epi');
@@ -148,7 +157,7 @@ export function setUrl(url: string): void {
 
 // 中心座標を求める
 export function center(): number[] {
-  if (centerPosition[0] == 0 && centerPosition[1] == 0){
+  if ((centerPosition[0] == 0 && centerPosition[1] == 0) || isTsunami){
     return [139.570312, 35.621581];
   }else if(isOverseas){
     // 海外の場合は日本と震源の中心をとる
@@ -207,6 +216,9 @@ export function zoomLevel(): number {
   // 海外の場合
   if (isOverseas){
     return 1;
+  }
+  if (isTsunami){
+    return 5.5;
   }
   if ((latMaxMin[0]+latMaxMin[1]) == 0 && (lonMaxMin[0]+lonMaxMin[1]) == 0){
     return 6;
@@ -523,4 +535,26 @@ export function pointStyle(feature: RenderFeature): Style{
         })),
       });
   }
+}
+
+// 津波予報区 style
+export function tsunamiStyle(feature: RenderFeature): Style {
+  const properties = feature.getProperties();
+
+  console.log(properties);
+
+  if (parameter.tsunami.indexOf(properties.code) !== -1){
+    return new Style({
+      stroke: new Stroke({
+        color: '#eb3f3f',
+        width: 5,
+      }),
+    });
+  }
+
+  return new Style({
+    stroke: new Stroke({
+      color: color('prefCountryStroke'),
+    }),
+  });
 }
