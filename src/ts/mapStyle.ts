@@ -219,7 +219,7 @@ export function zoomLevel(): number {
       return isTileColor? 9 : 10;
     }
     if(distance >= 1 && distance < 2){
-      return isTileColor? 8 : 10;
+      return isTileColor? 8 : 9;
     }
     if(distance >= 2 && distance < 3){
       return isTileColor? 8 : 9;
@@ -277,7 +277,6 @@ function addEpicenter(position: string[]) {
   if(lon < 20.2531 || lon > 45.3326 || lat < 122.5557 || lat > 153.5912){
     isOverseas = true;
   }
-
   positionCalculate([lon, lat]);
 }
 
