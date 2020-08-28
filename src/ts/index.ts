@@ -151,7 +151,7 @@ const overviewMapControl = new control.OverviewMap({
   collapsed: false,
   view: new View({
     extent: transformExtent([126.914062,26.588527,149.414062,45.213003], 'EPSG:4326', 'EPSG:3857'),
-    minZoom: 0,
+    minZoom: 4,
     maxZoom: 4,
     zoom: 4,
   })
