@@ -1,8 +1,9 @@
 # Earthquake Map
 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/earthquake-alert/earthquake-map?style=flat-square)
+
 <p style="text-align: center">
-  <img src="assets/title.png" width="45%">
-  <img src="assets/震度速報.png" width="45%">
+  <img src="assets/title.png">
 </p>
 
 ## TL;DR
