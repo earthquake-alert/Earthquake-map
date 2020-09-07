@@ -336,6 +336,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('1Stroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas2.indexOf(properties.code) !== -1){
@@ -346,6 +347,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('2Stroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas3.indexOf(properties.code) !== -1){
@@ -356,6 +358,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('3Stroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas4.indexOf(properties.code) !== -1){
@@ -366,6 +369,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('4Stroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas5l.indexOf(properties.code) !== -1){
@@ -376,6 +380,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('5lStroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas5u.indexOf(properties.code) !== -1){
@@ -386,6 +391,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('5uStroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas6l.indexOf(properties.code) !== -1){
@@ -396,6 +402,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('6lStroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas6u.indexOf(properties.code) !== -1){
@@ -406,6 +413,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('6uStroke'),
+        width: 2,
       }),
     });
   }else if(parameter.areas7.indexOf(properties.code) !== -1){
@@ -416,6 +424,7 @@ export function tileStyle(feature: RenderFeature): Style{
       }),
       stroke: new Stroke({
         color: color('7Stroke'),
+        width: 2,
       }),
     });
   }
@@ -426,6 +435,7 @@ export function tileStyle(feature: RenderFeature): Style{
     }),
     stroke: new Stroke({
       color: color('areaStroke'),
+      width: 2,
     }),
   });
 }

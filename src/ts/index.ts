@@ -51,6 +51,7 @@ const prefMap = new Layer.VectorTile({
   style: new Style({
     stroke: new Stroke({
       color: color('prefCountryStroke'),
+      width: 3,
     }),
   }),
   maxZoom: 10,
@@ -104,6 +105,7 @@ const worldMap = new Layer.VectorTile({
     }),
     stroke: new Stroke({
       color: color('prefCountryStroke'),
+      width: 2,
     }),
   }),
   maxZoom: 5,
