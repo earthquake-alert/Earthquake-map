@@ -150,9 +150,6 @@ export function setUrl(url: string): void {
 export function center(): number[] {
   if (centerPosition[0] == 0 && centerPosition[1] == 0){
     return [139.570312, 35.621581];
-  }else if(isOverseas){
-    // 海外の場合は日本と震源の中心をとる
-    return [(139.570312+centerPosition[1]) / (count+1), (35.621581+centerPosition[0]) / (count+1)];
   }
   return [centerPosition[1] / count, centerPosition[0] / count];
 }
