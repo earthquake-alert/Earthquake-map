@@ -1,5 +1,9 @@
 # URL GETパラメータの説明
 
+## デモサイト
+
+[https://earthquake-map.vercel.app/](https://earthquake-map.vercel.app/)
+
 ## 例
 
 - 震度分布図（観測地域）
