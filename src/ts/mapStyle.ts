@@ -133,17 +133,44 @@ export function setUrl(url: string): void {
   addPosition(parameter.areas6u, 'point6u');
   addPosition(parameter.areas7, 'point7');
 
-  addPoint(parameter.point1);
-  addPoint(parameter.point2);
-  addPoint(parameter.point3);
-  addPoint(parameter.point4);
-  addPoint(parameter.point5l);
-  addPoint(parameter.point5u);
-  addPoint(parameter.point6l);
-  addPoint(parameter.point6u);
-  addPoint(parameter.point7);
+  selecePoints();
 
   setGeoJSON();
+}
+
+// 地図の中心座標、拡大率を求める際に使用する観測点を最大震度ごとにフィルター
+function selecePoints(){
+  const si3OverLength = parameter.point3.length +
+                        parameter.point4.length +
+                        parameter.point5l.length +
+                        parameter.point5u.length +
+                        parameter.point6l.length +
+                        parameter.point6u.length +
+                        parameter.point7.length;
+
+  if (si3OverLength === 0){
+    // 最大震度3以下の場合はそれら2つの震度観測点から
+    addPoint(parameter.point1);
+    addPoint(parameter.point2);
+  }
+  else if (parameter.point7.length !== 0){
+    // 震度7の場合は、5弱5強6弱6強7の観測点から
+    addPoint(parameter.point5l);
+    addPoint(parameter.point5u);
+    addPoint(parameter.point6l);
+    addPoint(parameter.point6u);
+    addPoint(parameter.point7);
+  }else{
+    // 最大震度3以上の場合は震度3以上の観測点から
+    addPoint(parameter.point3);
+    addPoint(parameter.point4);
+    addPoint(parameter.point5l);
+    addPoint(parameter.point5u);
+    addPoint(parameter.point6l);
+    addPoint(parameter.point6u);
+  }
+
+
 }
 
 // 中心座標を求める
