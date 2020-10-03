@@ -61,6 +61,7 @@ const parameter: Parameter  = {
 };
 
 let count = 0;
+let pointScale = 0.8;
 // [lon, lat]
 const centerPosition: number[] = [0, 0];
 const latMaxMin: number[] = [0, 0];
@@ -240,36 +241,47 @@ export function zoomLevel(): number {
     const distance = Math.sqrt(Math.pow((latMaxMin[0]-latMaxMin[1]), 2) + Math.pow((lonMaxMin[0]-lonMaxMin[1]), 2));
 
     if(distance < 1){
+      pointScale = 0.8;
       return isTileColor? 9 : 10;
     }
     if(distance >= 1 && distance < 2){
+      pointScale = 0.7;
       return isTileColor? 8 : 9;
     }
     if(distance >= 2 && distance < 3){
+      pointScale = 0.6;
       return isTileColor? 8 : 9;
     }
     if(distance >= 3 && distance < 4){
+      pointScale = 0.5;
       return isTileColor? 8 : 9;
     }
     if(distance >= 4 && distance < 5){
+      pointScale = 0.5;
       return isTileColor? 7 : 9;
     }
     if(distance >= 5 && distance < 6){
+      pointScale = 0.5;
       return isTileColor? 7 : 8;
     }
     if(distance >= 6 && distance < 7){
+      pointScale = 0.5;
       return isTileColor? 7 : 8;
     }
     if(distance >= 7 && distance < 8){
+      pointScale = 0.5;
       return isTileColor? 7 : 8;
     }
     if(distance >= 8 && distance < 9){
+      pointScale = 0.5;
       return isTileColor? 7 : 8;
     }
     if(distance >= 9 && distance < 10){
+      pointScale = 0.5;
       return isTileColor? 7 : 8;
     }
     if(distance >= 10){
+      pointScale = 0.5;
       return isTileColor ? 7 : 7;
     }
     return 6;
@@ -472,7 +484,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point1':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/1.png',
       })),
       });
@@ -480,7 +492,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point2':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/2.png',
       })),
       });
@@ -488,7 +500,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point3':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/3.png',
         })),
       });
@@ -496,7 +508,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point4':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/4.png',
         })),
       });
@@ -504,7 +516,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point5l':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/5l.png',
         })),
       });
@@ -512,7 +524,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point5u':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/5u.png',
         })),
       });
@@ -520,7 +532,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point6l':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/6l.png',
         })),
       });
@@ -528,7 +540,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point6u':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/6u.png',
         })),
       });
@@ -536,7 +548,7 @@ export function pointStyle(feature: RenderFeature): Style{
     case 'point7':
       return new Style({
         image: new Icon( /** @type {olx.style.IconOptions} */ ({
-          scale: 0.8,
+          scale: pointScale,
           src: 'static/icon/7.png',
         })),
       });
